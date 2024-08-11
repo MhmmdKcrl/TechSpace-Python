@@ -1,0 +1,41 @@
+insert into Books(name, page_count, published_date)
+values ('sfhjkhvsfdv', 14, '2023-08-02'),
+('third', 155, '2023-12-22'),
+('fourth', 19, '2019-08-02')
+
+
+
+select * from Books 
+where page_count > 10 order by page_count desc
+limit 3 offset 6
+
+
+
+
+update Books
+set name = 'updated book', page_count = 40
+where name not like "%big%";
+
+
+
+alter table Books
+add column order_counters smallint
+
+alter table Books
+ADD genre varchar(20) not null 
+
+
+alter table Books
+drop column genre
+
+
+alter table Book_info
+rename to Books
+
+alter table Book_info
+modify column book_name varchar(50)
+
+
+alter table Book_info
+modify column book_name varchar(50) not null 
+

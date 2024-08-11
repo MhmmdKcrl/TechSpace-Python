@@ -1,0 +1,6 @@
+CRUD 
+
+create   - insert
+read     - select
+update   - update, alter
+delete   - delete, drop
