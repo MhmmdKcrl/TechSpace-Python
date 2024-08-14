@@ -4,7 +4,6 @@ services:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: '12345'
-      mysql_user: 'name'
     ports:
       - 3306:3306
     volumes:

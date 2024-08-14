@@ -1,0 +1,45 @@
+
+create table satici(
+   id int auto_increment primary key,
+   name varchar(40) not null,
+   city varchar(40),
+   commission decimal(4, 2) not null
+    
+);
+
+create table musteri(
+   id int auto_increment primary key,
+   name varchar(40) not null,
+   city varchar(40) not null,
+   grade int,
+   satici_id int not null,
+   foreign key (satici_id) references satici (id) on delete cascade
+
+);
+
+
+insert into satici
+values
+(5001, 'James Hoog', 'New York', 0.15),
+(5002, 'Nail Knite', 'Paris', 0.13),
+(5003, 'Lauson Hense', null, 0.12),
+(5005, 'Pit Alex', 'London', 0.11),
+(5006, 'Mc Lyon', 'Paris', 0.14),
+(5007, 'Paul Adam', 'Rome', 0.13);
+
+
+
+
+insert into musteri
+values
+(3001, 'Brad Guzan', 'London',null, 5005),
+(3002, 'Nick Rimando', 'New York', 100, 5001),
+(3005, 'Graham Zusi', 'California', 200, 5002),
+(3004, 'Fabian Johnson', 'Paris', 300, 5006),
+(3007, 'Brad Davis', 'New York', 200, 5001),
+(3009, 'Geof Cameron', 'Berlin', 100, 5003),
+(3008, 'Julian Green', 'London', 300, 5002),
+(3003, 'Jozy Altidore', 'Moscow', 200, 5007);
+
+
+
