@@ -1,0 +1,9 @@
+linux
+export FLASK_APP=app.py
+
+windows (powershell)
+$env:FLASK_APP = "app"
+
+
+
+
