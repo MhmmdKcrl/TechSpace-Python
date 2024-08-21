@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{blog.title}}</title>
+{% endblock %}
+
+{% block content %}
+        {% if message %}
+        {{message}}
+        {% else %}
+            <main>
+                <div class="container col-lg-4 d-flex">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{blog.image}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">{{blog.title}}</h5>
+                            <p class="card-text">{{blog.content}}</p>
+                            <p class="card-text">{{blog.author}}</p>
+
+                            </div>
+                        </div>
+                </div>
+            </main>
+        {% endif %}
+
+{% endblock %}
