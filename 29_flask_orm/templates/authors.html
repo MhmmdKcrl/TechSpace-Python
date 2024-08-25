@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="container py-5 my-5">
+    <a href="{{url_for('create_author')}}">Create author</a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Email</th>
+          <th scope="col">Update</th>
+          <th scope="col">Delete</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in authors %}
+          <tr>
+            <th scope="row"><a href="">{{ i.id }}</a></th>
+            <td><img style="width: 120px; height: 80px;" {% if i.image == 'default.jpg' %}src="{{url_for('static', filename='photo/download.jpg')}}"{% else %}src="{{i.image}}{% endif %}"></td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.surname }}</td>
+            <td>{{ i.email }}</td>
+            <td><a href="{{url_for('update_author', id=i.id)}}">update me</a></td>
+            <td><a href="{{url_for('delete_author', id =i.id)}}">delete me</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+{% endblock %}

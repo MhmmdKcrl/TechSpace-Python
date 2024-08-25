@@ -1,7 +1,9 @@
 from flask import url_for, redirect, render_template, request
+from sqlalchemy import or_
 
 from  app import app
-from models import Blog
+from models import Blog, Author
+from extensions import db
 
 user_list = [
     {
@@ -88,3 +90,77 @@ def blog(id):
         message = "Blog not found"
     
     return render_template('blog_detail.html', blog=blog, message=message)
+
+
+
+@app.route('/authors/', methods=['GET'])
+def authors():
+    authors = Author.query.all()
+    q = request.args.get('q')
+    if q:
+
+        # authors = Author.query.filter_by(name=q, surname=q).all()
+        authors = Author.query.filter(or_(Author.name.like(f"%{q}%"), Author.surname.like(f"%{q}%"), Author.email.like(f"%{q}%") )).order_by(Author.name.desc()).all()
+
+    return render_template('authors.html', authors=authors, q=q)
+
+
+
+@app.route('/update_author/<int:id>/', methods=['GET', 'POST'])
+def update_author(id):
+    author = Author.query.get(id)
+    message = None
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        print(request.form, "-----------")
+
+        Author.query.filter_by(id=id).update(dict(
+            name=name,
+            surname=surname,
+            email=email,
+            password=password)
+        )
+
+        # author.name = name
+        # author.surname = surname
+        # author.email = email
+        # author.password = password
+
+        db.session.commit()
+        message = f"Author {author.id} updated successfully"
+
+    return render_template('update.html', author=author, message=message)
+
+
+@app.route('/delete_author/<int:id>/', methods=['GET', 'POST'])
+def delete_author(id):
+    author = Author.query.get(id)
+    message = None
+    if request.method == 'POST':
+        author.delete()
+        message = f"Author {author.id} deleted successfully"
+    
+    print(message, "-----------")
+    
+    return render_template('delete.html', message=message)
+
+
+@app.route('/create_author/', methods=['GET', 'POST'])
+def create_author():
+    message = None
+    if request.method == 'POST':
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        author = Author(name=name, surname=surname, email=email, password=password)
+        author.save()
+        message = f"Author {author.name} {author.surname} created successfully"
+
+    return render_template('create.html', message=message)
