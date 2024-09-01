@@ -3,6 +3,9 @@
 {% block content %}
 
   <div class="container py-5 my-5">
+    {% if user %}
+      <h1>Hello {{user}}</h1>
+    {% endif %}
     <a href="{{url_for('create_author')}}">Create author</a>
     <table class="table">
       <thead>

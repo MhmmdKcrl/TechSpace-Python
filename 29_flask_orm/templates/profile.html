@@ -8,8 +8,8 @@
 
 {% block content %}
 
-{% if name %}
-<p class="text-center">welcome {{name}}</p>
+{% if user %}
+<p class="text-center">welcome {{user.full_name}}</p>
 {% endif %}
 
 {% endblock %}
